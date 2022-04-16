@@ -4,6 +4,8 @@
 [db_servers]
 192.168.8.110
 
-
 [file_servers]
 192.168.8.110
+
+[workstations]
+192.168.8.111
