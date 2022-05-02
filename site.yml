@@ -65,6 +65,15 @@
        owner: root
        group: root
        mode: 0644
+
+   - name: copy myfile
+     tags: apache, apache2, httpd, copyFile
+     copy:
+       src: files/test.txt
+       dest: /var/www/html/test.html
+       owner: root
+       group: root
+       mode: 0644
  
  - hosts: db_servers
    become: true
