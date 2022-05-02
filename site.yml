@@ -4,20 +4,32 @@
    become: true
    pre_tasks:
  
-   - name: install updates (CentOS)
+   - name: Update Cache (CentOS)
      tags: always
      dnf:
-       update_only: yes
        update_cache: yes
+     changed_when: false
      when: ansible_distribution == "CentOS"
  
-   - name: install updates (Ubuntu)
+   - name: Update Cache (Ubuntu)
      tags: always
      apt:
-       upgrade: dist
        update_cache: yes
+     changed_when: false
      when: ansible_distribution == "Ubuntu"
+
+ - hosts: all
+   become: true
+   tasks:
  
+   - name: add ssh key for simone
+     tags: always
+     authorized_key:
+        user: simone
+        key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFXHTka2kd0Ld+jFFeBk1BhtprxWOeW/YB9PwqmSXMhI ansible"
+
+
+
 
  - hosts: workstations
    become: true
@@ -68,14 +80,6 @@
        group: root
        mode: 0644
 
-   - name: copy myfile
-     tags: apache, apache2, httpd, copyFile
-     copy:
-       src: files/test.txt
-       dest: /var/www/html/test.html
-       owner: root
-       group: root
-       mode: 0644
  
  - hosts: db_servers
    become: true
